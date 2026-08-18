@@ -17,8 +17,8 @@ class TodoListController extends Controller
         TodoList::create(["desc" => $desc, "idpack" => $idpack]); //create new row to database
     }
 
-    public function updatedesc(int $id, string $desc) {
-        TodoList::where('id', $id)->update(['desc' => $desc]);
+    public function updatedesc(int $id, string $newdesc) {
+        TodoList::where('id', $id)->update(['desc' => $newdesc]);
     }
 
     public function updatechecked(int $id, bool $checked) {
