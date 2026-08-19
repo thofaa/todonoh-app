@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\TodoList;
 use App\Models\TodoPack;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class TodoListController extends Controller
 {
     //todopack as a parent and todolist as a child
     public function index(int $id) {
-        return Inertia::render('welcome', ['todolistindex' => TodoPack::with('todopack')->where('id', $id)->first()]);
+        return Inertia::render('welcome', [
+            'todopackindex' => TodoPack::all(),
+            'todolistindex' => [TodoPack::with('todopack')->where('id', $id)->first()]]);
     }
 
-    public function addnewtodolist(string $desc, int $idpack) {
-        TodoList::create(["desc" => $desc, "idpack" => $idpack]); //create new row to database
+    public function addnewtodolist(Request $request) {
+        TodoList::create([
+            "desc" => $request->input("desc"), //using post method, so that it will use input method
+            "idpack" => $request->input("idpack")
+        ]);
     }
 
     public function updatedesc(int $id, string $newdesc) {

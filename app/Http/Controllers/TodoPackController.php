@@ -10,7 +10,9 @@ class TodoPackController extends Controller
 {
     //display all todopack with NO todolist child
     public function index() {
-        return Inertia::render('welcome', ["todopackindex" => TodoPack::all()]);
+        return Inertia::render('welcome', [
+            "todopackindex" => TodoPack::all(),
+            "todolistindex" => []]);
     }
 
     //display all todolists as a parent and the todopacks as a child
