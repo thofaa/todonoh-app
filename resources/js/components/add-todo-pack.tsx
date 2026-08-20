@@ -1,14 +1,20 @@
 import { Form } from "@inertiajs/react"
 import { addpack } from "@/routes/todopack"
+import { useState } from "react"
 
 export default function AddTodoPack() {
+    const [todopacknew, settodopacknew] = useState("")
+
     return (
         <div>
             <Form action={addpack.url()} method="post">
                 {({processing, errors}) => (
                     <input
                     name="title"
-                    placeholder="<add new pack>" 
+                    value={todopacknew}
+                    onChange={(e) => settodopacknew(e.target.value)}
+                    placeholder="<add new pack>"
+                    onKeyDown={(e) => {if (e.key === "Enter") {requestAnimationFrame(() => settodopacknew(""))}}}
                     disabled={processing}
                     className="font-happy-markers font-stretch-extra-condensed items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
                     </input>

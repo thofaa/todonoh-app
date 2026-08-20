@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TodoList;
 use App\Models\TodoPack;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class TodoPackController extends Controller
@@ -21,8 +22,10 @@ class TodoPackController extends Controller
         return view("todolistview", ["todolistdata" => $todolistdata]);
     }
 
-    public function addnewtodopack(string $title) {
-        TodoPack::create(["title" => $title]);
+    public function addnewtodopack(Request $request) {
+        TodoPack::create([
+            "title" => $request->input("title")
+        ]);
     }
 
     public function updatetodopack(int $id, string $title) {
