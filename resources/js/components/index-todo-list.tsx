@@ -21,37 +21,29 @@ export default function IndexTodoList({arrtodopack}: {arrtodopack: Array<{id: nu
     }
 
     return arrtodopack.map(element => (
-        <>
+        <div className="flex mt-4">
             {OnEdit ? (
-                <>
-                    <div className="flex w-17 h-17 mr-3 justify-center items-center">
-                        <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)} className="w-14 h-14"></input>
-                    </div>
-                    <div className="flex h-17 w-full items-center pr-3">
-                        <input value={NewText}
-                        onChange={(e) => setNewText(e.target.value)} 
-                        onKeyDown={(key) => {if (key.key === "Enter") {UpdateDesc(element.id, NewText)}}} 
-                        placeholder="<edit your todo>"
-                        className="h-15 w-full font-happy-markers font-stretch-extra-condensed items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
-                        </input>
-                    </div>
-                </>
+                <div className="flex h-14">
+                    <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)} className="w-14 h-14"></input>
+                    <input value={NewText}
+                    onChange={(e) => setNewText(e.target.value)} 
+                    onKeyDown={(key) => {if (key.key === "Enter") {UpdateDesc(element.id, NewText)}}} 
+                    placeholder="<edit your todo>"
+                    className="h-14 w-full font-happy-markers items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl pr-3">
+                    </input>
+                </div>
             ) : (
-                <>
-                    <div id={`todolist-${element.id}`}>
-                        <div className="flex w-17 h-17 mr-3 justify-center items-center">
-                            <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)} className="w-14 h-14"></input>
-                        </div>
-                        <div className="flex h-17 w-full items-center pr-3">
-                            <p className={`flex h-15 font-happy-markers font-stretch-extra-condensed text-white items-center ${element.checked ? "line-through" : ""}`}>{element.desc}</p>
-                        </div>
+                <div id={`todolist-${element.id}`} className="flex h-14">
+                    <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)} className="w-14 h-14"></input>
+                    <div className="ml-2 mr-2">
+                        <p className={`flex h-14 font-happy-markers text-white justify-center items-center ${element.checked ? "line-through" : ""}`}>{element.desc}</p>
                     </div>
-                </>
+                </div>
             )}
             <div className="flex justify-center items-center">
                 <Pencil id="edit-icon"className="w-[40] h-[40] mr-2.5" onClick={() => setOnEdit(true)}/>
                 <Trash2 id="trash-icon" className="w-[40] h-[40]" onClick={() => DeleteTodoList(element.id)}/>
             </div>
-        </>)
+        </div>)
     )
 }

@@ -39,12 +39,12 @@ export default function Mainpage(
                                 Select a pack from the sidebar
                             </p>
                         }
-                        <div id='todo-list-add' className="flex h-17">
-                            <div className="flex w-17 h-17 mr-3 justify-center items-center">
+                        <div id='todo-list-add' className="flex h-14 mt-4">
+                            <div className="flex w-14 h-14 justify-center items-center mr-2">
                                 <input type="checkbox" disabled className="w-14 h-14"></input>
                             </div>
                             {/*add new list in here*/}
-                            <div className="flex h-17 w-full items-center pr-3">
+                            <div className="flex h-14 w-full items-center">
                                 <Form action={addlist.url()} method="post">
                                     {({processing, errors}) => (
                                         <>
