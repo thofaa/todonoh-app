@@ -21,6 +21,8 @@ class TodoListController extends Controller
             "desc" => $request->input("desc"), //using post method, so that it will use input method
             "idpack" => $request->input("idpack")
         ]);
+
+        //return redirect()->back();
     }
 
     public function updatedesc(int $id, string $newdesc) {

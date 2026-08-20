@@ -13,6 +13,8 @@ export default function Mainpage(
         todopackindex: Array<{id: number, title: string}>,
         todolistindex?: Array<{id: number, todopack: Array<{id: number, desc: string, idpack: number, checked: boolean, created_at: string, updated_at: string}>}>}) {
 
+        const [todolistnew, settodolistnew] = useState("")
+
         return (
             <Sheet>
             <div className="relative flex w-full overflow-hidden">
@@ -45,14 +47,17 @@ export default function Mainpage(
                             </div>
                             {/*add new list in here*/}
                             <div className="flex h-14 w-full items-center">
-                                <Form action={addlist.url()} method="post">
+                                <Form action={addlist.url()} method="post" resetOnSuccess>
                                     {({processing, errors}) => (
                                         <>
                                             <input type="hidden" name="idpack" value={todolistindex[0]?.id ?? ""}></input>
                                             <input
                                             name="desc"
-                                            placeholder="<add new list>" 
+                                            value={todolistnew}
+                                            onChange={(e) => settodolistnew(e.target.value)}
+                                            placeholder="<add new list>"
                                             disabled={processing}
+                                            onKeyDown={(e) => {if (e.key === "Enter") {requestAnimationFrame(() => settodolistnew(""))}}}
                                             className="font-happy-markers font-stretch-extra-condensed items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
                                             </input>
                                         </>
