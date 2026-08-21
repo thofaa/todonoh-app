@@ -24,10 +24,11 @@ export default function Mainpage(
                 className="fixed inset-0 z-0 h-full w-full object-cover object-[0%_75%]">
                 </img>
                 <main className="w-full">
-                    <div className="relative z-10 flex justify-between items-center border border-white rounded-2xl h-14.25 w-full pl-5 pr-5 mt-2.5">
-                        <h2 className="[-webkit-text-stroke:0.3px_black] font-happy-markers text-[30px]">Lorem Ipsum</h2>
+                    <div className="relative z-10 flex items-center border border-white rounded-2xl h-14.25 w-full pl-5 pr-5 mt-2.5">
+                        <img src="/favicon.svg" className="w-9 h-9 mr-2.5"></img>
+                        <h2 className="[-webkit-text-stroke:0.3px_black] font-happy-markers text-[30px]">TODONOH...</h2>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="h-9 w-9">
+                                <Button variant="ghost" size="icon" className="ml-auto h-9 w-9">
                                     <Menu className="h-5 w-5" />
                                 </Button>
                             </SheetTrigger>
