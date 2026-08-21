@@ -38,7 +38,13 @@ class TodoPackController extends Controller
 
     public function deletetodopack(Request $request) {
         $id = $request->input('id');
+        $url = $request->input('url');
+
         TodoPack::find($id)->delete();
+
+        if ($url == "/todolistall/{$id}") {
+            return redirect('/');
+        }
 
         return redirect()->back();
     }

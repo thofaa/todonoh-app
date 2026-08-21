@@ -1,6 +1,6 @@
 import { SheetContent, SheetTitle } from "./ui/sheet";
 import AddTodoPack from "./add-todo-pack";
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { indexlist } from "@/routes/todolist";
 import { Trash2, Pencil } from "lucide-react"
 import { useState } from "react";
@@ -10,12 +10,14 @@ export default function TodoSideBar({todopacklist=[]}: {todopacklist?: Array<{id
     const [OnEdit, setOnEdit] = useState<number | null>(null)
     const [NewTitle, setNewTitle] = useState("")
 
+    const {url} = usePage()
+
     function GetTodoList(id: number) {
         router.get(indexlist.url({id}))
     }
 
     function DeleteTodoPack(id: number) {
-        router.post(deletepack.url(), {id})
+        router.post(deletepack.url(), {id, url})
     }
 
     function UpdateTitle(id: number, newtitle: string) {
