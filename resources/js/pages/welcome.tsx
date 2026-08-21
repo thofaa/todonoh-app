@@ -35,38 +35,48 @@ export default function Mainpage(
                     <div id="todo-box" className="relative w-full z-10 flex-col mt-7 pl-2.5 pr-2.5">
                         {/* display all todo list in here*/}
                         {todolistindex?.length > 0
-                            ? todolistindex.map(element =>
-                                <IndexTodoList arrtodopack={element.todopack}/>
+                            ? 
+                            <>
+                                {todolistindex.map(element =>
+                                    <IndexTodoList arrtodopack={element.todopack}/>
+                                )}
+                                <div id='todo-list-add' className="flex h-11 mt-5">
+                                    <div>
+                                        <input type="checkbox" disabled className="w-11 h-11 text-teal-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-teal-500 dark:focus:ring-teal-600 ring-offset-neutral-primary focus:ring-2"></input>
+                                    </div>
+                                    {/*add new list in here*/}
+                                    <div className="flex items-center ml-2">
+                                        <Form action={addlist.url()} method="post" resetOnSuccess>
+                                            {({processing, errors}) => (
+                                                <>
+                                                    <input type="hidden" name="idpack" value={todolistindex[0]?.id ?? ""}></input>
+                                                    <input
+                                                    name="desc"
+                                                    value={todolistnew}
+                                                    onChange={(e) => settodolistnew(e.target.value)}
+                                                    maxLength={250}
+                                                    placeholder="<add new list>"
+                                                    disabled={processing}
+                                                    onKeyDown={(e) => {if (e.key === "Enter") {requestAnimationFrame(() => settodolistnew(""))}}}
+                                                    className="[-webkit-text-stroke:0.3px_black] font-happy-markers font-stretch-extra-condensed items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
+                                                    </input>
+                                                </>
+                                            )}
+                                        </Form>
+                                    </div>
+                                </div>
+                            </>
+                            : ( 
+                                <>
+                                    <p className="[-webkit-text-stroke:0.3px_black] font-happy-markers text-orange-300 text-center text-2xl mt-13">
+                                    Hello!
+                                    </p>
+                                    <p className="[-webkit-text-stroke:0.3px_black] font-happy-markers text-orange-300 text-center text-2xl mt-3">
+                                    Select a pack from the sidebar
+                                    </p>
+                                </>
                             )
-                            : <p className="font-happy-markers text-white text-center mt-5">
-                                Select a pack from the sidebar
-                            </p>
                         }
-                        <div id='todo-list-add' className="flex h-11 mt-5">
-                            <div>
-                                <input type="checkbox" disabled className="w-11 h-11 text-teal-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-teal-500 dark:focus:ring-teal-600 ring-offset-neutral-primary focus:ring-2"></input>
-                            </div>
-                            {/*add new list in here*/}
-                            <div className="flex items-center ml-2">
-                                <Form action={addlist.url()} method="post" resetOnSuccess>
-                                    {({processing, errors}) => (
-                                        <>
-                                            <input type="hidden" name="idpack" value={todolistindex[0]?.id ?? ""}></input>
-                                            <input
-                                            name="desc"
-                                            value={todolistnew}
-                                            onChange={(e) => settodolistnew(e.target.value)}
-                                            maxLength={250}
-                                            placeholder="<add new list>"
-                                            disabled={processing}
-                                            onKeyDown={(e) => {if (e.key === "Enter") {requestAnimationFrame(() => settodolistnew(""))}}}
-                                            className="[-webkit-text-stroke:0.3px_black] font-happy-markers font-stretch-extra-condensed items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
-                                            </input>
-                                        </>
-                                    )}
-                                </Form>
-                            </div>
-                        </div>
                     </div>
                 </main>
             </div>
