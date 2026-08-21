@@ -9,12 +9,12 @@ export default function TodoSideBar({todopacklist=[]}: {todopacklist?: Array<{id
     }
 
     return (
-        <SheetContent side="right" className="w-100 items-center bg-transparent border border-white rounded-2xl">
+        <SheetContent side="right" className="w-153 sm:max-w-none items-center bg-transparent border border-white rounded-2xl">
             <SheetTitle className="font-happy-markers text-[20px] mt-5">Menu</SheetTitle>
             <div className="flex flex-col mt-4">
-                <ul>
+                <ul className="list-disc marker:text-amber-200">
                     {todopacklist?.map(pack => 
-                        <li id={`todopack-${pack.id}`} className="font-happy-markers text-[17px]" onClick={() => GetTodoList(pack.id)}>
+                        <li id={`todopack-${pack.id}`} className="w-full rounded-md p-3 hover:bg-border active:bg-border font-happy-markers text-[17px]" onClick={() => GetTodoList(pack.id)}>
                             {pack.title}
                         </li>
                     )}
