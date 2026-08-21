@@ -13,10 +13,11 @@ export default function AddTodoPack() {
                     name="title"
                     value={todopacknew}
                     onChange={(e) => settodopacknew(e.target.value)}
+                    maxLength={50}
                     placeholder="<add new pack>"
                     onKeyDown={(e) => {if (e.key === "Enter") {requestAnimationFrame(() => settodopacknew(""))}}}
                     disabled={processing}
-                    className="font-happy-markers text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
+                    className="[-webkit-text-stroke:0.3px_black] font-happy-markers text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
                     </input>
                 )}
             </Form>

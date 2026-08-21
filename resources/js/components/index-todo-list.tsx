@@ -22,24 +22,25 @@ export default function IndexTodoList({arrtodopack}: {arrtodopack: Array<{id: nu
     }
 
     return arrtodopack.map(element => (
-        <div className="flex mt-4">
+        <div className="flex h-11 mt-6.5">
+            <div>
+                <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)} 
+                className="w-11 h-11 text-teal-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-teal-500 dark:focus:ring-teal-600 ring-offset-neutral-primary focus:ring-2"></input>
+            </div>
             {OnEdit === element.id ? (
-                <div className="flex h-14">
-                    <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)} className="w-14 h-14"></input>
-                    <input 
+                <div>
+                    <input
                     value={NewText}
                     onChange={(e) => setNewText(e.target.value)}
+                    maxLength={250}
                     onKeyDown={(key) => {if (key.key === "Enter") {UpdateDesc(element.id, NewText)}}} 
                     placeholder="<edit your todo>"
-                    className="h-14 w-full font-happy-markers items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl pr-3">
+                    className="[-webkit-text-stroke:0.3px_black] h-11 font-happy-markers items-center text-orange-500 placeholder:text-orange-500 placeholder:justify-center border border-orange-500 rounded-2xl pr-3">
                     </input>
                 </div>
             ) : (
-                <div id={`todolist-${element.id}`} className="flex h-14">
-                    <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)} className="w-14 h-14"></input>
-                    <div className="ml-2 mr-2">
-                        <p className={`flex h-14 font-happy-markers text-white justify-center items-center ${element.checked ? "line-through" : ""}`}>{element.desc}</p>
-                    </div>
+                <div className="ml-2 mr-2">
+                    <p className={`[-webkit-text-stroke:0.3px_black] flex h-11 font-happy-markers text-white justify-center items-center ${element.checked ? "line-through decoration-orange-400" : ""}`}>{element.desc}</p>
                 </div>
             )}
             <div className="flex justify-center items-center">

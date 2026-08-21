@@ -25,7 +25,7 @@ export default function Mainpage(
                 </img>
                 <main className="w-full">
                     <div className="relative z-10 flex justify-between items-center border border-white rounded-2xl h-14.25 w-full pl-5 pr-5 mt-2.5">
-                        <h2 className="font-happy-markers text-[23px]">Lorem Ipsum</h2>
+                        <h2 className="[-webkit-text-stroke:0.3px_black] font-happy-markers text-[30px]">Lorem Ipsum</h2>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="h-9 w-9">
                                     <Menu className="h-5 w-5" />
@@ -42,12 +42,12 @@ export default function Mainpage(
                                 Select a pack from the sidebar
                             </p>
                         }
-                        <div id='todo-list-add' className="flex h-14 mt-4">
-                            <div className="flex w-14 h-14 justify-center items-center mr-2">
-                                <input type="checkbox" disabled className="w-14 h-14"></input>
+                        <div id='todo-list-add' className="flex h-11 mt-5">
+                            <div>
+                                <input type="checkbox" disabled className="w-11 h-11 text-teal-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-teal-500 dark:focus:ring-teal-600 ring-offset-neutral-primary focus:ring-2"></input>
                             </div>
                             {/*add new list in here*/}
-                            <div className="flex h-14 w-full items-center">
+                            <div className="flex items-center ml-2">
                                 <Form action={addlist.url()} method="post" resetOnSuccess>
                                     {({processing, errors}) => (
                                         <>
@@ -56,10 +56,11 @@ export default function Mainpage(
                                             name="desc"
                                             value={todolistnew}
                                             onChange={(e) => settodolistnew(e.target.value)}
+                                            maxLength={250}
                                             placeholder="<add new list>"
                                             disabled={processing}
                                             onKeyDown={(e) => {if (e.key === "Enter") {requestAnimationFrame(() => settodolistnew(""))}}}
-                                            className="font-happy-markers font-stretch-extra-condensed items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
+                                            className="[-webkit-text-stroke:0.3px_black] font-happy-markers font-stretch-extra-condensed items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
                                             </input>
                                         </>
                                     )}
