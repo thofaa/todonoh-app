@@ -30,8 +30,7 @@
             }
         </style>
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
         <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/happy-markers">
 
         @fonts
