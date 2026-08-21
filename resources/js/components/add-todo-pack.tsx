@@ -6,7 +6,7 @@ export default function AddTodoPack() {
     const [todopacknew, settodopacknew] = useState("")
 
     return (
-        <div>
+        <>
             <Form action={addpack.url()} method="post">
                 {({processing, errors}) => (
                     <input
@@ -16,10 +16,10 @@ export default function AddTodoPack() {
                     placeholder="<add new pack>"
                     onKeyDown={(e) => {if (e.key === "Enter") {requestAnimationFrame(() => settodopacknew(""))}}}
                     disabled={processing}
-                    className="font-happy-markers font-stretch-extra-condensed items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
+                    className="font-happy-markers text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl">
                     </input>
                 )}
             </Form>
-        </div>
+        </>
     )
 }

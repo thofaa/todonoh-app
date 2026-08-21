@@ -2,27 +2,61 @@ import { SheetContent, SheetTitle } from "./ui/sheet";
 import AddTodoPack from "./add-todo-pack";
 import { router } from '@inertiajs/react';
 import { indexlist } from "@/routes/todolist";
+import { Trash2, Pencil } from "lucide-react"
+import { useState } from "react";
+import { deletepack, updatepack } from "@/routes/todopack";
 
 export default function TodoSideBar({todopacklist=[]}: {todopacklist?: Array<{id: number, title: string}>}) {
+    const [OnEdit, setOnEdit] = useState<number | null>(null)
+    const [NewTitle, setNewTitle] = useState("")
+
     function GetTodoList(id: number) {
         router.get(indexlist.url({id}))
     }
 
+    function DeleteTodoPack(id: number) {
+        router.post(deletepack.url(), {id})
+    }
+
+    function UpdateTitle(id: number, newtitle: string) {
+        router.post(updatepack.url(), {id, newtitle})
+        setOnEdit(null)
+        setNewTitle("")
+    }
+
     return (
-        <SheetContent side="right" className="w-153 sm:max-w-none items-center bg-transparent border border-white rounded-2xl">
+        <SheetContent side="right" className="w-170 sm:max-w-none items-center bg-transparent border border-white rounded-2xl">
             <SheetTitle className="font-happy-markers text-[20px] mt-5">Menu</SheetTitle>
             <div className="flex flex-col mt-4">
-                <ul className="list-disc marker:text-amber-200">
-                    {todopacklist?.map(pack => 
-                        <li id={`todopack-${pack.id}`} className="w-full rounded-md p-3 hover:bg-border active:bg-border font-happy-markers text-[17px]" onClick={() => GetTodoList(pack.id)}>
-                            {pack.title}
-                        </li>
-                    )}
+                <ul className="list-disc list-inside">
+                    {todopacklist?.map(pack => (
+                        <div className="flex gap-1">
+                        {OnEdit === pack.id ? (
+                            <input 
+                            value={NewTitle}
+                            onChange={(e) => setNewTitle(e.target.value)}
+                            onKeyDown={(key) => {if (key.key === "Enter") {UpdateTitle(pack.id, NewTitle)}}} 
+                            placeholder="<edit your pack>"
+                            className="h-14 w-full font-happy-markers items-center text-orange-300 placeholder:text-orange-300 border border-orange-300 rounded-2xl pr-3">
+                            </input>
+                        ) : (
+                            <li id={`todopack-${pack.id}`} className="rounded-md p-3 hover:bg-border active:bg-border font-happy-markers text-[17px]" onClick={() => GetTodoList(pack.id)}>
+                                {pack.title}
+                            </li>
+                        )}
+                            <div className="flex justify-center items-center">
+                                <Pencil id="edit-icon"className="w-[40] h-[40] mr-2.5" onClick={() => {setNewTitle(pack.title); setOnEdit(pack.id)}}/>
+                                <Trash2 id="trash-icon" className="w-[40] h-[40]" onClick={() => DeleteTodoPack(pack.id)}/>
+                            </div>
+                        </div>
+                    ))}
                 </ul>
             </div>
 
             {/* manage input todo pack */}
-            <AddTodoPack />
+            <div>
+                <AddTodoPack />
+            </div>
         </SheetContent>
     )
 }

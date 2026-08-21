@@ -1,6 +1,6 @@
 import { deletelist, updatelistchecked, updatelistdesc } from "@/routes/todolist";
 import { router } from '@inertiajs/react';
-import { Trash2, Pencil, Check } from "lucide-react"
+import { Trash2, Pencil } from "lucide-react"
 import { useState } from "react";
 
 export default function IndexTodoList({arrtodopack}: {arrtodopack: Array<{id: number, desc: string, idpack: number, checked: boolean, created_at: string, updated_at: string}>}) {

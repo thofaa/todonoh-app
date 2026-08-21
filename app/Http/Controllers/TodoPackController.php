@@ -28,12 +28,18 @@ class TodoPackController extends Controller
         ]);
     }
 
-    public function updatetodopack(int $id, string $title) {
-        TodoPack::where('id', $id)->update(['title' => $title]);
+    public function updatetodopack(Request $request) {
+        $id = $request->input('id');
+        $newtitle = $request->input('newtitle');
+        TodoPack::where('id', $id)->update(['title' => $newtitle]);
+
+        return redirect()->back();
     }
 
-    public function deletetodopack(int $id) {
-        $todopack = TodoPack::find($id);
-        $todopack->delete();
+    public function deletetodopack(Request $request) {
+        $id = $request->input('id');
+        TodoPack::find($id)->delete();
+
+        return redirect()->back();
     }
 }
