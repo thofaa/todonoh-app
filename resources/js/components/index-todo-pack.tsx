@@ -27,7 +27,7 @@ export default function TodoSideBar({todopacklist=[]}: {todopacklist?: Array<{id
     return (
         <SheetContent side="right" className="w-170 sm:max-w-none items-center bg-transparent border border-white rounded-2xl">
             <SheetTitle className="[-webkit-text-stroke:0.3px_black] font-happy-markers text-[20px] mt-5">MyTodo-Pack</SheetTitle>
-            <div className="flex flex-col mt-4">
+            <div className="flex flex-col w-full mt-4">
                 <ul className="list-disc pl-7">
                     {todopacklist?.map(pack => (
                         <div className="flex gap-1">
@@ -35,7 +35,7 @@ export default function TodoSideBar({todopacklist=[]}: {todopacklist?: Array<{id
                             <input 
                             value={NewTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
-                            maxLength={50}
+                            maxLength={60}
                             onKeyDown={(key) => {if (key.key === "Enter") {UpdateTitle(pack.id, NewTitle)}}} 
                             placeholder="<edit your pack>"
                             className="[-webkit-text-stroke:0.3px_black] h-14 w-full font-happy-markers items-center text-orange-500 placeholder:text-orange-500 border border-orange-300 rounded-2xl pr-3">

@@ -13,7 +13,7 @@ export default function AddTodoPack() {
                     name="title"
                     value={todopacknew}
                     onChange={(e) => settodopacknew(e.target.value)}
-                    maxLength={50}
+                    maxLength={60}
                     placeholder="<add new pack>"
                     onKeyDown={(e) => {if (e.key === "Enter") {requestAnimationFrame(() => settodopacknew(""))}}}
                     disabled={processing}
