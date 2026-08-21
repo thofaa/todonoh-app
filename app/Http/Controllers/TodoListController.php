@@ -33,8 +33,12 @@ class TodoListController extends Controller
         return redirect()->back();
     }
 
-    public function updatechecked(int $id, bool $checked) {
+    public function updatechecked(Request $request) {
+        $id = $request->input('id');
+        $checked = $request->input('checked');
         TodoList::where('id', $id)->update(['checked' => !$checked]);
+
+        return redirect()->back();
     }
 
     public function deletetodolist(Request $request) {
