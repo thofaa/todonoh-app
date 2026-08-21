@@ -22,13 +22,15 @@ class TodoListController extends Controller
             "idpack" => $request->input("idpack")
         ]);
 
-        //return redirect()->back();
+        return redirect()->back();
     }
 
     public function updatedesc(Request $request) {
         $id = $request->input('id');
         $newdesc = $request->input('newdesc');
         TodoList::where('id', $id)->update(['desc' => $newdesc]);
+
+        return redirect()->back();
     }
 
     public function updatechecked(int $id, bool $checked) {
@@ -38,5 +40,7 @@ class TodoListController extends Controller
     public function deletetodolist(Request $request) {
         $id = $request->input('id');
         TodoList::find($id)->delete();
+
+        return redirect()->back();
     }
 }
