@@ -25,7 +25,9 @@ class TodoListController extends Controller
         //return redirect()->back();
     }
 
-    public function updatedesc(int $id, string $newdesc) {
+    public function updatedesc(Request $request) {
+        $id = $request->input('id');
+        $newdesc = $request->input('newdesc');
         TodoList::where('id', $id)->update(['desc' => $newdesc]);
     }
 
@@ -33,8 +35,8 @@ class TodoListController extends Controller
         TodoList::where('id', $id)->update(['checked' => !$checked]);
     }
 
-    public function deletetodolist(int $id) {
-        $todolist = TodoList::find($id);
-        $todolist->delete();
+    public function deletetodolist(Request $request) {
+        $id = $request->input('id');
+        TodoList::find($id)->delete();
     }
 }
