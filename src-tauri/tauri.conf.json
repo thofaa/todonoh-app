@@ -14,7 +14,8 @@
                 "title": "TODONOH",
                 "width": 1200,
                 "height": 800,
-                "resizable": true
+                "resizable": true,
+                "url": "loader.html"
             }
         ],
         "security": {
@@ -25,6 +26,6 @@
         "active": true,
         "targets": ["deb", "appimage"],
         "icon": ["icons/icon.png"],
-        "externalBin": ["binaries/frankenphp"]
+        "resources": ["resources/laravel", "resources/bin"]
     }
 }
