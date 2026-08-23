@@ -108,6 +108,8 @@ export default [
             'node_modules',
             'public',
             'bootstrap/ssr',
+            'src-tauri/**',
+            'vendor/**',
             'tailwind.config.js',
             'vite.config.ts',
             'resources/js/actions/**',
