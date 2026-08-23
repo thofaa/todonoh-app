@@ -13,7 +13,8 @@
         "types:check": "tsc --noEmit",
         "tauri": "tauri",
         "tauri:stage": "mkdir -p src-tauri/resources/laravel && rsync -a --delete --delete-excluded --exclude public/hot --exclude database/database.sqlite --exclude vendor/phpstan/phpstan/turbo-ext app bootstrap config database public resources routes vendor artisan composer.json composer.lock src-tauri/resources/laravel/ && mkdir -p src-tauri/resources/bin && cp src-tauri/launcher.sh src-tauri/resources/bin/frankenphp && chmod 755 src-tauri/resources/bin/frankenphp && gzip -9 -c src-tauri/binaries/frankenphp-x86_64-unknown-linux-gnu > src-tauri/resources/bin/frankenphp.gz",
-        "tauri:build": "npm run build && npm run tauri:stage && rm -rf src-tauri/target/release/resources src-tauri/target/release/bundle/appimage && tauri build"
+        "tauri:build": "npm run build && npm run tauri:stage && rm -rf src-tauri/target/release/resources src-tauri/target/release/bundle/appimage && tauri build",
+        "app:install": "bash scripts/install-app.sh"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",
