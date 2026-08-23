@@ -7,7 +7,6 @@ import { config, Form, router } from "@inertiajs/react"
 import { addlist, deletelist } from "@/routes/todolist"
 import todopack from '../routes/todopack/index';
 import IndexTodoList from "@/components/index-todo-list"
-import { getbackground } from "@/routes"
 import MainNavBar from "@/components/mainnavbar"
 import { gsap } from "gsap"
 
@@ -33,7 +32,7 @@ export default function Mainpage(
                 <Sheet>
                 <div className="relative flex w-full overflow-hidden">
                     <img 
-                    src={getbackground.url('4476858ae6575574ee238ebddec16dfed5b3699ac9467c51e8b42fab0429e736')} 
+                    src="/cloudpict04.jpg" 
                     className="fixed inset-0 z-0 h-full w-full object-cover object-[0%_75%]">
                     </img>
                     <main className="w-full">
