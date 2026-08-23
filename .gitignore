@@ -27,3 +27,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+.ai
+/src-tauri/target
+/src-tauri/gen
+/src-tauri/binaries
