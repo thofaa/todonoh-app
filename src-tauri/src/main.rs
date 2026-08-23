@@ -97,15 +97,42 @@ fn prepare_state(data_dir: &Path) {
     }
 }
 
-fn migrate(fp: &Path, laravel_root: &Path, data_dir: &Path) {
+fn app_env(data_dir: &Path, port: u16) -> Vec<(&'static str, String)> {
+    let mut env = vec![
+        ("APP_ENV", "production".to_string()),
+        ("APP_DEBUG", "false".to_string()),
+    ];
+    if !cfg!(debug_assertions) {
+        env.extend([
+            ("APP_KEY", app_key(data_dir)),
+            ("DB_CONNECTION", "sqlite".to_string()),
+            (
+                "DB_DATABASE",
+                data_dir.join("database/todo.sqlite").to_str().expect("utf8").to_string(),
+            ),
+            ("SESSION_DRIVER", "database".to_string()),
+            ("CACHE_STORE", "file".to_string()),
+            (
+                "APP_STORAGE_PATH",
+                data_dir.join("storage").to_str().expect("utf8").to_string(),
+            ),
+            ("APP_URL", format!("http://127.0.0.1:{port}")),
+        ]);
+    }
+    env
+}
+
+fn migrate(fp: &Path, laravel_root: &Path, env: &[(&'static str, String)], data_dir: &Path) {
     if cfg!(debug_assertions) || data_dir.join(".migrated").exists() {
         return;
     }
-    let output = Command::new(fp)
-        .args(["php-cli", "artisan", "migrate", "--force"])
-        .current_dir(laravel_root)
-        .output()
-        .expect("spawn migrate");
+    let mut cmd = Command::new(fp);
+    cmd.args(["php-cli", "artisan", "migrate", "--force"])
+        .current_dir(laravel_root);
+    for (key, value) in env {
+        cmd.env(key, value);
+    }
+    let output = cmd.output().unwrap_or_else(|e| panic!("spawn migrate ({}): {e}", fp.display()));
     if output.status.success() {
         std::fs::write(data_dir.join(".migrated"), b"ok").ok();
     } else {
@@ -144,24 +171,10 @@ fn main() {
                 laravel.join("public").to_str().expect("utf8 path"),
                 "--listen",
                 &format!("127.0.0.1:{port}"),
-            ])
-            .env("APP_ENV", "production")
-            .env("APP_DEBUG", "false");
-
-            if !cfg!(debug_assertions) {
-                cmd.env("APP_KEY", app_key(&data_dir))
-                    .env("DB_CONNECTION", "sqlite")
-                    .env(
-                        "DB_DATABASE",
-                        data_dir.join("database/todo.sqlite").to_str().expect("utf8"),
-                    )
-                    .env("SESSION_DRIVER", "database")
-                    .env("CACHE_STORE", "file")
-                    .env(
-                        "APP_STORAGE_PATH",
-                        data_dir.join("storage").to_str().expect("utf8"),
-                    )
-                    .env("APP_URL", &format!("http://127.0.0.1:{port}"));
+            ]);
+            let env = app_env(&data_dir, port);
+            for (key, value) in &env {
+                cmd.env(key, value);
             }
 
             let child = Some(
@@ -175,7 +188,7 @@ fn main() {
             );
             *server_for_setup.lock().expect("server lock") = child;
 
-            migrate(&fp, &laravel, &data_dir);
+            migrate(&fp, &laravel, &env, &data_dir);
 
             std::thread::spawn(move || {
                 for _ in 0..60 {
