@@ -19,7 +19,11 @@ fn laravel_root(handle: &tauri::AppHandle) -> PathBuf {
     if cfg!(debug_assertions) {
         std::env::current_dir().expect("cwd").join("..")
     } else {
-        handle.path().resource_dir().expect("resource dir").join("laravel")
+        handle
+            .path()
+            .resource_dir()
+            .expect("resource dir")
+            .join("resources/laravel")
     }
 }
 
@@ -124,6 +128,11 @@ fn main() {
             let port = free_port();
             let laravel = laravel_root(&handle);
             let fp = frankenphp_path(&handle);
+            for required in [laravel.join("public/index.php"), fp.clone()] {
+                if !required.exists() {
+                    panic!("packaged file missing: {}", required.display());
+                }
+            }
             ensure_executable(&fp);
             let data_dir = handle.path().app_data_dir().expect("app data dir");
             prepare_state(&data_dir);
