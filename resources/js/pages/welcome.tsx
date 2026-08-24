@@ -32,7 +32,7 @@ export default function Mainpage(
                 <Sheet>
                 <div className="relative flex w-full overflow-hidden">
                     <img 
-                    src="/cloudpict04.jpg" 
+                    src="/cloudpict1.jpg" 
                     className="fixed inset-0 z-0 h-full w-full object-cover object-[0%_75%]">
                     </img>
                     <main className="w-full">

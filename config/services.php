@@ -34,9 +34,4 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
-    'photos' => [
-        'token' => env('PHOTO_SECRET_TOKEN')
-    ],
-
 ];
