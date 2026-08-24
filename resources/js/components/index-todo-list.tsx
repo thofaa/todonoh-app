@@ -1,6 +1,6 @@
 import { addlist, deletelist, updatelistchecked, updatelistdesc } from "@/routes/todolist";
 import { Form, router } from '@inertiajs/react';
-import { Trash2, Pencil } from "lucide-react"
+import { Trash2, Pencil, Check } from "lucide-react"
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
@@ -33,15 +33,18 @@ export default function IndexTodoList({arrtodopack, idpack}: {arrtodopack: Array
         tl.fromTo(rows, { x: -21, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.07 });
         if (addRow) tl.fromTo(addRow, { x: -21, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: 'power3.out' });
         return () => { tl.kill(); };
-    }, []);
+        }, []);
+
+    const checkCls = "peer absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full border-2 border-white/50 bg-white/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 checked:border-transparent checked:bg-linear-to-br checked:from-orange-400 checked:to-rose-500 checked:shadow-lg checked:shadow-orange-500/40"
 
     return (
         <div ref={listRef}>
             {arrtodopack.map(element => (
             <div className="flex h-11 mt-6.5">
-                <div>
-                    <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)} 
-                    className="w-11 h-11 text-teal-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-teal-500 dark:focus:ring-teal-600 ring-offset-neutral-primary focus:ring-2"></input>
+                <div className="relative flex h-11 w-11 items-center justify-center">
+                    <input type="checkbox" checked={element.checked} onChange={() => ToggleChecked(element.id, element.checked)}
+                    className={checkCls}></input>
+                    <Check strokeWidth={3} className="pointer-events-none absolute h-6 w-6 scale-50 text-white opacity-0 transition-all duration-200 peer-checked:scale-100 peer-checked:opacity-100"></Check>
                 </div>
                 {OnEdit === element.id ? (
                     <div>
@@ -65,8 +68,8 @@ export default function IndexTodoList({arrtodopack, idpack}: {arrtodopack: Array
                 </div>
             </div>))}
             <div id='todo-list-add' className="flex h-11 mt-5">
-                <div>
-                    <input type="checkbox" disabled className="w-11 h-11 text-teal-600 bg-neutral-secondary-medium border-default-medium rounded-xs focus:ring-teal-500 dark:focus:ring-teal-600 ring-offset-neutral-primary focus:ring-2"></input>
+                <div className="relative flex h-11 w-11 items-center justify-center">
+                    <input type="checkbox" disabled className={checkCls}></input>
                 </div>
                 <div className="flex items-center ml-2">
                     <Form action={addlist.url()} method="post" resetOnSuccess>
