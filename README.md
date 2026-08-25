@@ -7,7 +7,7 @@
 <p align="center">
   A simple desktop todo app built with Laravel, Inertia.js, and Tauri.
   <br />
-  (This project actually I use to learn laravel, but I migrate it to desktop app and use Tauri to make the app without shipping it to my browser, hehe)
+  (This project actually I use to learn laravel, but I migrate it to desktop app and use Tauri to make the app without shipping it to my browser and without changing the laravel code, hehe)
 </p>
 
 ## Build
