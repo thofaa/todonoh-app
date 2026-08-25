@@ -2,7 +2,7 @@
   <img src="public/favicon.svg" alt="Todonoh" width="128" />
 </p>
 
-<h1 align="center">Todonoh</h1>
+<h1 align="center">TODONOH &#x1F639;</h1>
 
 <p align="center">
   A simple desktop todo app built with Laravel, Inertia.js, and Tauri.
